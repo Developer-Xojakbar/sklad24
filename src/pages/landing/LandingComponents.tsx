@@ -28,6 +28,7 @@ import {
   Menu as MenuIcon,
   Close as CloseIcon,
 } from '@mui/icons-material';
+import { Logo } from './Logo';
 import { scrollFromToAnimation } from '../../utils';
 import HERO_BG from '../../images/landing/hero-bg.jpg';
 import CONTAINER_6M from '../../images/landing/container-6m.png';
@@ -225,7 +226,7 @@ const TEXT = {
     telegramAriaLabel: 'Telegram',
     instagramAriaLabel: 'Instagram',
     facebookAriaLabel: 'Facebook',
-    copyright: '© 2024 TEZPORT. Все права защищены',
+    copyright: '© 2024 SKLAD24. Все права защищены',
   },
   floatingTelegram: {
     ariaLabel: 'Написать в Telegram',
@@ -261,10 +262,6 @@ const scrollTo = (e: React.MouseEvent, id: string) => {
 };
 
 // ─── Layout ───────────────────────────────────────────────────────────────────
-
-const Logo = () => {
-  return <></>;
-};
 
 export const LandingScroll = styled.div`
   width: 100%;
@@ -423,41 +420,39 @@ const NavbarInner = styled.div`
   }
 `;
 
-const NavbarLogo = styled(LogoBase).attrs({
-  isOpen: true,
-})`
-  & {
-    width: auto;
-    margin-left: 0;
-    padding: 0;
-    border-bottom: none;
-    height: auto;
-    grid-template-columns: max-content max-content;
-  }
+// const NavbarLogo = styled(LogoBase).attrs({})`
+//   /* & {
+//     width: auto;
+//     margin-left: 0;
+//     padding: 0;
+//     border-bottom: none;
+//     height: auto;
+//     grid-template-columns: max-content max-content;
+//   }
 
-  & > div:first-child {
-    width: 5rem;
-    height: 4.4rem;
-    margin-left: 0;
-  }
+//   & > div:first-child {
+//     width: 5rem;
+//     height: 4.4rem;
+//     margin-left: 0;
+//   }
 
-  & > *:nth-child(2) {
-    font-size: var(--font-size-6);
-    line-height: var(--line-height-6);
-  }
+//   & > *:nth-child(2) {
+//     font-size: var(--font-size-6);
+//     line-height: var(--line-height-6);
+//   }
 
-  @media (max-width: ${screen.medium}px) {
-    & > div:first-child {
-      width: 3.6rem;
-      height: 3.2rem;
-    }
+//   @media (max-width: ${screen.medium}px) {
+//     & > div:first-child {
+//       width: 3.6rem;
+//       height: 3.2rem;
+//     }
 
-    & > *:nth-child(2) {
-      font-size: var(--font-size-4);
-      line-height: var(--line-height-4);
-    }
-  }
-`;
+//     & > *:nth-child(2) {
+//       font-size: var(--font-size-4);
+//       line-height: var(--line-height-4);
+//     }
+//   } */
+// `;
 
 const NavLinks = styled.nav`
   display: flex;
@@ -633,7 +628,7 @@ export const Navbar = ({ handleSendSignUpClick }: { handleSendSignUpClick: () =>
   return (
     <NavbarBase>
       <NavbarInner>
-        <NavbarLogo isInvert />
+        <Logo />
 
         <NavLinks>
           {NAV_LINKS.map(({ id }) => (
@@ -2369,7 +2364,7 @@ export const LandingFooter = ({ handleOpenTelegram }: { handleOpenTelegram: () =
       <FooterGrid>
         <div>
           <FooterLogo>
-            <NavbarLogo />
+            <Logo isInverted />
           </FooterLogo>
           <FooterDesc>{TEXT.footer.description}</FooterDesc>
         </div>
