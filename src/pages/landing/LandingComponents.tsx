@@ -73,7 +73,7 @@ const TEXT = {
     titleYellow1: 'Под склад',
     titleYellow2: 'в Ташкенте',
     subtitle:
-      'Надёжное и безопасное хранение ваших вещей, товаров и оборудования в индивидуальных контейнерах на охраняемой территории.',
+      'Аренда контейнера под склад в Ташкенте — надёжное хранение вещей, товаров и оборудования в сухих герметичных контейнерах на охраняемой территории 24/7.',
     features: {
       security: {
         line1: 'Охраняемая',
@@ -131,6 +131,7 @@ const TEXT = {
       sixMeters: {
         tag: '6 метров',
         title: '20 футов',
+        imageAlt: 'Аренда 6-метрового контейнера под склад в Ташкенте — 15 м²',
         specs: {
           volume: 'Объём: 33 м³',
           area: 'Площадь: 15 м²',
@@ -140,6 +141,7 @@ const TEXT = {
       twelveMeters: {
         tag: '12 метров (40 ft)',
         title: '40 футов',
+        imageAlt: 'Аренда 12-метрового контейнера под склад в Ташкенте — 30 м²',
         specs: {
           volume: 'Объём: 67 м³',
           area: 'Площадь: 30 м²',
@@ -212,7 +214,7 @@ const TEXT = {
   },
   footer: {
     description:
-      'Аренда контейнеров под склад в Ташкенте. Безопасное хранение ваших вещей на охраняемой территории.',
+      'Аренда контейнера под склад в Ташкенте. Безопасное хранение ваших вещей на охраняемой территории с видеонаблюдением 24/7.',
     navigation: 'Навигация',
     contacts: 'Контакты',
     address: 'г. Ташкент, Сергелийский район, улица Хонабод',
@@ -222,7 +224,7 @@ const TEXT = {
     telegramAriaLabel: 'Telegram',
     instagramAriaLabel: 'Instagram',
     facebookAriaLabel: 'Facebook',
-    copyright: '© 2024 SKLAD24. Все права защищены',
+    copyright: '© 2026 SKLAD24. Все права защищены',
   },
   floatingTelegram: {
     ariaLabel: 'Написать в Telegram',
@@ -1465,24 +1467,21 @@ const ContainerMain = styled.div`
   }
 `;
 
-const ContainerImage = styled.div<{ $src: string; $side?: 'left' | 'right' }>`
+const ContainerImage = styled.div<{ $flip?: boolean }>`
   grid-area: image;
   height: 18rem;
   background: ${COLORS.white};
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: url(${({ $src }) => $src}) center / contain no-repeat;
-
-    ${({ $side }) =>
-      $side === 'right' &&
-      css`
-        transform: scaleX(-1);
-      `}
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: ${({ $flip }) => ($flip ? 'scaleX(-1)' : 'none')};
   }
 
   @media (max-width: ${SCREEN.MEDIUM}px) {
@@ -1633,7 +1632,16 @@ export const ContainerSizesSection = ({
           <ContainerMain>
             <ContainerTag>{TEXT.containers.items.sixMeters.tag}</ContainerTag>
             <ContainerTitle>{TEXT.containers.items.sixMeters.title}</ContainerTitle>
-            <ContainerImage $src={CONTAINER_6M} />
+            <ContainerImage>
+              <img
+                src={CONTAINER_6M}
+                alt={TEXT.containers.items.sixMeters.imageAlt}
+                loading="lazy"
+                decoding="async"
+                width={640}
+                height={360}
+              />
+            </ContainerImage>
             <ContainerSpecs>
               <li>
                 <ViewInArOutlinedIcon />
@@ -1664,7 +1672,16 @@ export const ContainerSizesSection = ({
           <ContainerMain>
             <ContainerTag>{TEXT.containers.items.twelveMeters.tag}</ContainerTag>
             <ContainerTitle>{TEXT.containers.items.twelveMeters.title}</ContainerTitle>
-            <ContainerImage $src={CONTAINER_12M} $side="right" />
+            <ContainerImage $flip>
+              <img
+                src={CONTAINER_12M}
+                alt={TEXT.containers.items.twelveMeters.imageAlt}
+                loading="lazy"
+                decoding="async"
+                width={640}
+                height={360}
+              />
+            </ContainerImage>
             <ContainerSpecs>
               <li>
                 <ViewInArOutlinedIcon />

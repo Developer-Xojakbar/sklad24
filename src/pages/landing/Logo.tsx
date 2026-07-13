@@ -7,7 +7,7 @@ const Container = styled.div`
   width: max-content;
 `;
 
-const Title = styled.h1<{ $isInverted?: boolean }>`
+const Title = styled.div<{ $isInverted?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +72,7 @@ interface LogoProps {
 export const Logo = ({ isInverted = false, ...props }: LogoProps) => {
   return (
     <Container {...props}>
-      <Title $isInverted={isInverted}>
+      <Title $isInverted={isInverted} aria-label="Sklad24 — индивидуальное хранение">
         <Word>SKLAD</Word>
         <Number>24</Number>
       </Title>
