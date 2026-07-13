@@ -1,8 +1,4 @@
-import {
-  SendSignUpModal,
-  SendSignUpSuccessModal,
-  sendSignUpModal,
-} from '../../design-system';
+import { SendSignUpModal, SendSignUpSuccessModal, sendSignUpModal } from '../../design-system';
 import {
   LandingScroll,
   LandingMain,
@@ -16,8 +12,8 @@ import {
   FAQSection,
   LandingFooter,
   FloatingTelegramButton,
-  CONTACT,
 } from './LandingComponents';
+import { CONTACT } from '../../const';
 
 export const Landing = () => {
   const handleSendSignUpClick = () => {

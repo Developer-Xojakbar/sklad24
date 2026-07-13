@@ -30,16 +30,10 @@ import {
 } from '@mui/icons-material';
 import { Logo } from './Logo';
 import { scrollFromToAnimation } from '../../utils';
-import { SCREEN } from '../../const';
+import { SCREEN, CONTACT } from '../../const';
 import HERO_BG from '../../images/landing/hero-bg.jpg';
 import CONTAINER_6M from '../../images/landing/container-6m.png';
 import CONTAINER_12M from '../../images/landing/container-12m.png';
-
-export const CONTACT = {
-  PHONE_FORMAT: '+998 99 444 02 09',
-  PHONE_NUMBER: '+998994440209',
-  TELEGRAM_LINK: 'https://t.me/Sklad24_uz',
-};
 
 const COLORS = {
   blue: '#1B5BB5',
@@ -152,7 +146,7 @@ const TEXT = {
     priceFrom: 'от {{price}}',
     priceUnit: 'сум/мес',
     select: 'Выбрать',
-    sizesNote: 'Также доступны размеры: 3 м², 12 м², 15 м², 30 м² - уточняйте у менеджера',
+    sizesNote: 'Также доступны размеры: 15 м², 30 м², 45 м², 60 м² - уточняйте у менеджера',
   },
   useCases: {
     title: 'Кто использует наши контейнеры',
@@ -727,6 +721,9 @@ export const Navbar = ({ handleSendSignUpClick }: { handleSendSignUpClick: () =>
 const HeroBase = styled.section``;
 
 const HeroInner = styled(SectionInner).attrs({ $maxWidth: 'outer' as const })`
+  max-width: 132rem;
+  padding: 0;
+
   @media (max-width: ${SCREEN.SMALL}px) {
     padding: 0;
   }
@@ -1664,7 +1661,7 @@ export const ContainerSizesSection = ({
           </ContainerMain>
           <ContainerFooter>
             <ContainerPrice>
-              от 1 200 000 <span>{TEXT.containers.priceUnit}</span>
+              от 900 000 <span>{TEXT.containers.priceUnit}</span>
             </ContainerPrice>
             <BaseButton $variant="blue" type="button" onClick={handleSendSignUpClick}>
               {TEXT.containers.select}
@@ -1704,7 +1701,7 @@ export const ContainerSizesSection = ({
           </ContainerMain>
           <ContainerFooter>
             <ContainerPrice>
-              от 1 800 000 <span>{TEXT.containers.priceUnit}</span>
+              от 1 400 000 <span>{TEXT.containers.priceUnit}</span>
             </ContainerPrice>
             <BaseButton $variant="blue" type="button" onClick={handleSendSignUpClick}>
               {TEXT.containers.select}
