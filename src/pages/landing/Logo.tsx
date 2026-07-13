@@ -1,11 +1,13 @@
 import styled from 'styled-components';
+import { SCREEN } from '../../const';
 
 const Container = styled.div`
   display: inline-flex;
   flex-direction: column;
+  width: max-content;
 `;
 
-const Title = styled.h1<{ isInverted?: boolean }>`
+const Title = styled.h1<{ $isInverted?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -18,7 +20,18 @@ const Title = styled.h1<{ isInverted?: boolean }>`
   letter-spacing: -0.1rem;
 
   & > *:nth-child(1) {
-    color: ${({ isInverted }) => (isInverted ? '#fff' : '#111827')} !important;
+    color: ${({ $isInverted }) => ($isInverted ? '#fff' : '#111827')} !important;
+  }
+
+  @media (max-width: ${SCREEN.MEDIUM}px) {
+    font-size: 3rem;
+    letter-spacing: -0.08rem;
+    justify-content: left;
+  }
+
+  @media (max-width: ${SCREEN.SMALL}px) {
+    font-size: 2.4rem;
+    letter-spacing: -0.06rem;
   }
 `;
 
@@ -30,7 +43,7 @@ const Number = styled.span`
   color: #2563eb;
 `;
 
-const Subtitle = styled.span<{ isInverted?: boolean }>`
+const Subtitle = styled.span<{ $isInverted?: boolean }>`
   margin-top: 0.6rem;
 
   font-family: 'Inter', sans-serif;
@@ -39,7 +52,17 @@ const Subtitle = styled.span<{ isInverted?: boolean }>`
   letter-spacing: 0rem;
   text-transform: uppercase;
 
-  color: ${({ isInverted }) => (isInverted ? '#E5E7EB' : '#6b7280')};
+  color: ${({ $isInverted }) => ($isInverted ? '#E5E7EB' : '#6b7280')};
+
+  @media (max-width: ${SCREEN.MEDIUM}px) {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+  }
+
+  @media (max-width: ${SCREEN.SMALL}px) {
+    margin-top: 0.4rem;
+    font-size: 0.85rem;
+  }
 `;
 
 interface LogoProps {
@@ -49,12 +72,12 @@ interface LogoProps {
 export const Logo = ({ isInverted = false, ...props }: LogoProps) => {
   return (
     <Container {...props}>
-      <Title isInverted={isInverted}>
+      <Title $isInverted={isInverted}>
         <Word>SKLAD</Word>
         <Number>24</Number>
       </Title>
 
-      <Subtitle isInverted={isInverted}>ИНДИВИДУАЛЬНОЕ ХРАНЕНИЕ</Subtitle>
+      <Subtitle $isInverted={isInverted}>ИНДИВИДУАЛЬНОЕ ХРАНЕНИЕ</Subtitle>
     </Container>
   );
 };

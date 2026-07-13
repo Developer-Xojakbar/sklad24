@@ -30,14 +30,10 @@ import {
 } from '@mui/icons-material';
 import { Logo } from './Logo';
 import { scrollFromToAnimation } from '../../utils';
+import { SCREEN } from '../../const';
 import HERO_BG from '../../images/landing/hero-bg.jpg';
 import CONTAINER_6M from '../../images/landing/container-6m.png';
 import CONTAINER_12M from '../../images/landing/container-12m.png';
-
-const screen = {
-  medium: 1024,
-  small: 768,
-};
 
 export const CONTACT = {
   PHONE_FORMAT: '+998 99 444 02 09',
@@ -279,11 +275,11 @@ export const Section = styled.section<{ $bg?: 'white' | 'gray' }>`
       background-color: ${COLORS.lightBg};
     `}
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     padding: 6rem 0;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     padding: 4.8rem 0;
   }
 `;
@@ -299,11 +295,11 @@ export const SectionInner = styled.div<{ $maxWidth?: 'outer' | 'inner' }>`
       max-width: 140rem;
     `}
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     padding: 0 2rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     padding: 0 1.6rem;
   }
 `;
@@ -317,7 +313,7 @@ export const SectionTitle = styled.h2`
   color: ${COLORS.blueDark};
   margin-bottom: 5rem;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     font-size: 2.2rem;
     margin-bottom: 3.2rem;
   }
@@ -355,7 +351,7 @@ const BaseButton = styled.button<{ $variant: 'yellow' | 'blue' | 'outline' | 'wh
       color: ${COLORS.blueDark};
       padding: 1.4rem 2.8rem;
 
-      @media (max-width: ${screen.small}px) {
+      @media (max-width: ${SCREEN.SMALL}px) {
         width: 100%;
         padding: 1.4rem 2rem;
       }
@@ -368,7 +364,7 @@ const BaseButton = styled.button<{ $variant: 'yellow' | 'blue' | 'outline' | 'wh
       color: ${COLORS.white};
       padding: 1.4rem 2.4rem;
 
-      @media (max-width: ${screen.small}px) {
+      @media (max-width: ${SCREEN.SMALL}px) {
         width: 100%;
         padding: 1.4rem 2rem;
       }
@@ -412,7 +408,7 @@ const NavbarInner = styled.div`
   padding: 1.6rem 4rem;
   min-height: 7.2rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     grid-template-columns: 1fr auto;
     gap: 1.2rem;
     padding: 1.2rem 1.6rem;
@@ -441,7 +437,7 @@ const NavbarInner = styled.div`
 //     line-height: var(--line-height-6);
 //   }
 
-//   @media (max-width: ${screen.medium}px) {
+//   @media (max-width: ${SCREEN.MEDIUM}px) {
 //     & > div:first-child {
 //       width: 3.6rem;
 //       height: 3.2rem;
@@ -461,7 +457,7 @@ const NavLinks = styled.nav`
   gap: 2.8rem;
   flex-wrap: wrap;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     display: none;
   }
 `;
@@ -483,7 +479,7 @@ const NavbarActions = styled.div`
   align-items: center;
   gap: 1.6rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     gap: 0.8rem;
   }
 `;
@@ -493,7 +489,7 @@ const NavbarDesktopActions = styled.div`
   align-items: center;
   gap: 1.6rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     display: none;
   }
 `;
@@ -503,7 +499,7 @@ const NavbarMobileActions = styled.div`
   align-items: center;
   gap: 0.8rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     display: flex;
   }
 `;
@@ -511,7 +507,7 @@ const NavbarMobileActions = styled.div`
 const NavbarTabletPhone = styled.div`
   display: none;
 
-  @media (max-width: ${screen.medium}px) and (min-width: ${screen.small + 1}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) and (min-width: ${SCREEN.SMALL + 1}px) {
     display: flex;
   }
 `;
@@ -519,7 +515,7 @@ const NavbarTabletPhone = styled.div`
 const NavbarMobilePhoneIcon = styled.div`
   display: none;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     display: flex;
   }
 `;
@@ -544,7 +540,7 @@ const NavbarIconButton = styled.button`
 const MobileMenuOverlay = styled.div<{ $open: boolean }>`
   display: none;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     display: ${({ $open }) => ($open ? 'block' : 'none')};
     position: fixed;
     inset: 0;
@@ -724,7 +720,7 @@ export const Navbar = ({ handleSendSignUpClick }: { handleSendSignUpClick: () =>
 const HeroBase = styled.section``;
 
 const HeroInner = styled(SectionInner).attrs({ $maxWidth: 'outer' as const })`
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     padding: 0;
   }
 `;
@@ -747,11 +743,11 @@ const HeroGrid = styled.div`
     ),
     url(${HERO_BG}) center / cover no-repeat;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     grid-template-columns: 1fr;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     grid-template-columns: 1fr;
     min-height: auto;
     border-radius: 0;
@@ -773,7 +769,7 @@ const HeroLeftPanel = styled.div`
   justify-content: center;
   z-index: 2;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     padding: 2.4rem 1.6rem 2rem;
   }
 `;
@@ -783,7 +779,7 @@ const HeroRightPanel = styled.div`
   z-index: 1;
   min-height: 20rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     min-height: 0;
     order: 3;
   }
@@ -822,11 +818,11 @@ const HeroTitle = styled.h1`
     }
   }
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     padding-right: 16rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     font-size: 2.8rem;
     margin-bottom: 1.6rem;
     padding-right: 12rem;
@@ -840,7 +836,7 @@ const HeroSubtitle = styled.p`
   max-width: 52rem;
   margin-bottom: 3rem;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     font-size: 1.4rem;
     margin-bottom: 2rem;
   }
@@ -852,7 +848,7 @@ const HeroFeatures = styled.div`
   margin-bottom: 3.6rem;
   width: min-content;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
@@ -874,7 +870,7 @@ const HeroFeatureIcon = styled.div`
     color: ${COLORS.white};
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     width: 3.6rem;
     height: 3.6rem;
 
@@ -917,7 +913,7 @@ const HeroFeature = styled.div`
     white-space: normal;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     width: 100%;
     padding-right: 0;
     margin-right: 0;
@@ -939,7 +935,7 @@ const HeroButtons = styled.div`
   gap: 1.6rem;
   width: max-content;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     flex-direction: column;
     width: 100%;
     gap: 1.2rem;
@@ -968,7 +964,7 @@ const HeroTelegramButton = styled.button`
     opacity: 0.88;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     width: 100%;
     padding: 1.4rem 2rem;
   }
@@ -1056,13 +1052,13 @@ const HeroCircleBadge = styled.div`
     margin-top: 0.4rem;
   }
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     top: 1.6rem;
     left: auto;
     right: 1.6rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     top: 1.6rem;
     left: auto;
     right: 1.6rem;
@@ -1105,7 +1101,7 @@ const HeroSizeCard = styled.div`
     flex-shrink: 0;
   }
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     position: static;
     left: auto;
     bottom: auto;
@@ -1236,7 +1232,7 @@ const BenefitsGrid = styled.div`
   grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     grid-template-columns: repeat(6, 1fr);
 
     & > *:nth-child(1) {
@@ -1260,7 +1256,7 @@ const BenefitsGrid = styled.div`
     }
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     grid-template-columns: 1fr;
     gap: 1.2rem;
 
@@ -1286,7 +1282,7 @@ const BenefitCard = styled.div`
     box-shadow: 0 0.8rem 2.4rem rgba(10, 45, 94, 0.1);
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     display: flex;
     align-items: flex-start;
     gap: 1.6rem;
@@ -1314,7 +1310,7 @@ const BenefitIcon = styled.div`
     font-size: 2.8rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     width: 4.8rem;
     height: 4.8rem;
     margin: 0;
@@ -1327,7 +1323,7 @@ const BenefitIcon = styled.div`
 `;
 
 const BenefitContent = styled.div`
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     flex: 1;
   }
 `;
@@ -1339,7 +1335,7 @@ const BenefitTitle = styled.h3`
   color: ${COLORS.blueDark};
   margin-bottom: 1rem;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     margin-bottom: 0.4rem;
   }
 `;
@@ -1412,12 +1408,12 @@ const ContainerCards = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 3rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     grid-template-columns: 1fr;
     gap: 2.4rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     gap: 2rem;
   }
 `;
@@ -1433,12 +1429,12 @@ const ContainerCard = styled.div`
   flex-direction: column;
   gap: 2.4rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     padding: 2rem;
     gap: 2rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     padding: 1.6rem;
     gap: 1.6rem;
   }
@@ -1455,11 +1451,11 @@ const ContainerMain = styled.div`
   align-items: start;
   flex-grow: 1;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     gap: 1.6rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     grid-template-columns: 1fr;
     grid-template-areas:
       'tag'
@@ -1489,11 +1485,11 @@ const ContainerImage = styled.div<{ $src: string; $side?: 'left' | 'right' }>`
       `}
   }
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     height: 16rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     height: 16rem;
   }
 `;
@@ -1518,11 +1514,11 @@ const ContainerTitle = styled.h3`
   color: #131523;
   line-height: 1.2;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     font-size: 2.2rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     font-size: 2rem;
   }
 `;
@@ -1557,11 +1553,11 @@ const ContainerFooter = styled.div`
   justify-content: space-between;
   gap: 1.6rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     gap: 1.2rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     flex-direction: column;
     align-items: stretch;
     gap: 1.2rem;
@@ -1580,11 +1576,11 @@ const ContainerPrice = styled.p`
     color: ${COLORS.textMuted};
   }
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     font-size: 1.9rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     font-size: 1.8rem;
   }
 `;
@@ -1603,7 +1599,7 @@ const SizesNote = styled.div`
     font-size: 2.4rem;
   }
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     margin-top: 2.4rem;
     font-size: 1.6rem;
 
@@ -1612,7 +1608,7 @@ const SizesNote = styled.div`
     }
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     margin-top: 2rem;
     font-size: 1.4rem;
     text-align: center;
@@ -1710,19 +1706,19 @@ const UseCasesGrid = styled.div`
   grid-template-columns: repeat(6, 1fr);
   gap: 2rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     grid-template-columns: repeat(3, 1fr);
     gap: 1.6rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.2rem;
   }
 `;
 
 const UseCaseCard = styled(BenefitCard)`
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     padding: 2.4rem 1.6rem;
 
     ${BenefitIcon} {
@@ -1741,7 +1737,7 @@ const UseCaseCard = styled(BenefitCard)`
     }
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -1818,7 +1814,7 @@ const StepsRow = styled.div`
   justify-content: center;
   gap: 0;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
@@ -1833,7 +1829,7 @@ const StepItem = styled.div`
   max-width: 22rem;
   flex: 1;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     flex-direction: row;
     align-items: center;
     text-align: left;
@@ -1858,7 +1854,7 @@ const StepCircle = styled.div`
     font-size: 2.8rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     width: 4.8rem;
     height: 4.8rem;
     margin-bottom: 0;
@@ -1875,7 +1871,7 @@ const StepText = styled.p`
   color: ${COLORS.blueDark};
   font-weight: 500;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     flex: 1;
   }
 `;
@@ -1891,7 +1887,7 @@ const StepArrow = styled.div`
     font-size: 2rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     justify-content: center;
     padding: 0.5rem 0;
     width: 4.8rem;
@@ -1960,7 +1956,7 @@ const ContactGrid = styled.div`
   gap: 4rem;
   align-items: stretch;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
@@ -1975,7 +1971,7 @@ const MapBlock = styled.div`
   min-height: 36rem;
   background: ${COLORS.lightBg};
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     min-height: 24rem;
     max-height: 24rem;
     height: 24rem;
@@ -2017,12 +2013,12 @@ const ContactFormCard = styled.div`
   color: ${COLORS.white};
   height: 100%;
   max-height: 36rem;
-  min-width: 30rem;
+  min-width: 32rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     min-width: unset;
     max-height: none;
     height: auto;
@@ -2117,7 +2113,7 @@ const FAQQuestion = styled.button<{ $open: boolean }>`
     flex-shrink: 0;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     padding: 1.6rem;
     font-size: 1.4rem;
     gap: 1.2rem;
@@ -2136,7 +2132,7 @@ const FAQAnswer = styled.div<{ $open: boolean }>`
     color: ${COLORS.textMuted};
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     p {
       padding: 0 1.6rem 1.6rem;
       font-size: 1.3rem;
@@ -2230,11 +2226,11 @@ const FooterBase = styled.footer`
   color: ${COLORS.white};
   padding: 6rem 0 3rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     padding: 5rem 0 2.8rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     padding: 4rem 0 2.4rem;
   }
 `;
@@ -2245,13 +2241,13 @@ const FooterGrid = styled.div`
   gap: 4rem;
   margin-bottom: 4rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     grid-template-columns: 1fr 1fr;
     gap: 3rem 2.4rem;
     margin-bottom: 3.2rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     grid-template-columns: 1fr;
     gap: 3rem;
     margin-bottom: 3rem;
@@ -2261,11 +2257,11 @@ const FooterGrid = styled.div`
 const FooterLogo = styled.div`
   margin: -1rem 0 2rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     margin: -0.5rem 0 2.3rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     margin-bottom: 0;
   }
 `;
@@ -2276,8 +2272,12 @@ const FooterDesc = styled.p`
   opacity: 0.75;
   max-width: 28rem;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     max-width: none;
+  }
+
+  @media (max-width: ${SCREEN.SMALL}px) {
+    margin-top: 1.6rem;
   }
 `;
 
@@ -2288,7 +2288,7 @@ const FooterHeading = styled.h4`
   margin-bottom: 1.6rem;
   letter-spacing: 0.04em;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     margin-bottom: 1.2rem;
   }
 `;
@@ -2353,7 +2353,7 @@ const FooterBottom = styled.div`
   font-size: 1.2rem;
   opacity: 0.6;
 
-  @media (max-width: ${screen.medium}px) {
+  @media (max-width: ${SCREEN.MEDIUM}px) {
     padding-top: 2rem;
   }
 `;
@@ -2453,7 +2453,7 @@ const FloatingTelegram = styled.a`
     font-size: 2.8rem;
   }
 
-  @media (max-width: ${screen.small}px) {
+  @media (max-width: ${SCREEN.SMALL}px) {
     right: 1.6rem;
     bottom: 1.6rem;
     width: 5rem;
