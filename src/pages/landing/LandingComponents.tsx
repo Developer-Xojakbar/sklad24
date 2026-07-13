@@ -268,6 +268,11 @@ export const LandingScroll = styled.div`
   background-color: ${COLORS.white};
 `;
 
+export const LandingMain = styled.main`
+  display: block;
+  width: 100%;
+`;
+
 export const Section = styled.section<{ $bg?: 'white' | 'gray' }>`
   padding: 8rem 0;
 
@@ -2106,7 +2111,12 @@ const FAQItem = styled.div<{ $open: boolean }>`
   overflow: hidden;
 `;
 
-const FAQQuestion = styled.button<{ $open: boolean }>`
+const FAQQuestionHeading = styled.h3`
+  margin: 0;
+  font: inherit;
+`;
+
+const FAQQuestionButton = styled.button<{ $open: boolean }>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -2166,66 +2176,81 @@ export const FAQSection = () => {
         <SectionTitle>{TEXT.faq.title}</SectionTitle>
         <FAQList>
           <FAQItem $open={openIndex === 0}>
-            <FAQQuestion
-              type="button"
-              $open={openIndex === 0}
-              onClick={() => setOpenIndex(openIndex === 0 ? null : 0)}
-            >
-              {TEXT.faq.items.rentalCost.question}
-              <ExpandMoreIcon />
-            </FAQQuestion>
+            <FAQQuestionHeading>
+              <FAQQuestionButton
+                type="button"
+                $open={openIndex === 0}
+                aria-expanded={openIndex === 0}
+                onClick={() => setOpenIndex(openIndex === 0 ? null : 0)}
+              >
+                {TEXT.faq.items.rentalCost.question}
+                <ExpandMoreIcon aria-hidden />
+              </FAQQuestionButton>
+            </FAQQuestionHeading>
             <FAQAnswer $open={openIndex === 0}>
               <p>{TEXT.faq.items.rentalCost.answer}</p>
             </FAQAnswer>
           </FAQItem>
           <FAQItem $open={openIndex === 1}>
-            <FAQQuestion
-              type="button"
-              $open={openIndex === 1}
-              onClick={() => setOpenIndex(openIndex === 1 ? null : 1)}
-            >
-              {TEXT.faq.items.siteGuarded.question}
-              <ExpandMoreIcon />
-            </FAQQuestion>
+            <FAQQuestionHeading>
+              <FAQQuestionButton
+                type="button"
+                $open={openIndex === 1}
+                aria-expanded={openIndex === 1}
+                onClick={() => setOpenIndex(openIndex === 1 ? null : 1)}
+              >
+                {TEXT.faq.items.siteGuarded.question}
+                <ExpandMoreIcon aria-hidden />
+              </FAQQuestionButton>
+            </FAQQuestionHeading>
             <FAQAnswer $open={openIndex === 1}>
               <p>{TEXT.faq.items.siteGuarded.answer}</p>
             </FAQAnswer>
           </FAQItem>
           <FAQItem $open={openIndex === 2}>
-            <FAQQuestion
-              type="button"
-              $open={openIndex === 2}
-              onClick={() => setOpenIndex(openIndex === 2 ? null : 2)}
-            >
-              {TEXT.faq.items.businessStorage.question}
-              <ExpandMoreIcon />
-            </FAQQuestion>
+            <FAQQuestionHeading>
+              <FAQQuestionButton
+                type="button"
+                $open={openIndex === 2}
+                aria-expanded={openIndex === 2}
+                onClick={() => setOpenIndex(openIndex === 2 ? null : 2)}
+              >
+                {TEXT.faq.items.businessStorage.question}
+                <ExpandMoreIcon aria-hidden />
+              </FAQQuestionButton>
+            </FAQQuestionHeading>
             <FAQAnswer $open={openIndex === 2}>
               <p>{TEXT.faq.items.businessStorage.answer}</p>
             </FAQAnswer>
           </FAQItem>
           <FAQItem $open={openIndex === 3}>
-            <FAQQuestion
-              type="button"
-              $open={openIndex === 3}
-              onClick={() => setOpenIndex(openIndex === 3 ? null : 3)}
-            >
-              {TEXT.faq.items.minimumPeriod.question}
-              <ExpandMoreIcon />
-            </FAQQuestion>
+            <FAQQuestionHeading>
+              <FAQQuestionButton
+                type="button"
+                $open={openIndex === 3}
+                aria-expanded={openIndex === 3}
+                onClick={() => setOpenIndex(openIndex === 3 ? null : 3)}
+              >
+                {TEXT.faq.items.minimumPeriod.question}
+                <ExpandMoreIcon aria-hidden />
+              </FAQQuestionButton>
+            </FAQQuestionHeading>
             <FAQAnswer $open={openIndex === 3}>
               <p>{TEXT.faq.items.minimumPeriod.answer}</p>
             </FAQAnswer>
           </FAQItem>
           <FAQItem $open={openIndex === 4}>
-            <FAQQuestion
-              type="button"
-              $open={openIndex === 4}
-              onClick={() => setOpenIndex(openIndex === 4 ? null : 4)}
-            >
-              {TEXT.faq.items.siteAccess.question}
-              <ExpandMoreIcon />
-            </FAQQuestion>
+            <FAQQuestionHeading>
+              <FAQQuestionButton
+                type="button"
+                $open={openIndex === 4}
+                aria-expanded={openIndex === 4}
+                onClick={() => setOpenIndex(openIndex === 4 ? null : 4)}
+              >
+                {TEXT.faq.items.siteAccess.question}
+                <ExpandMoreIcon aria-hidden />
+              </FAQQuestionButton>
+            </FAQQuestionHeading>
             <FAQAnswer $open={openIndex === 4}>
               <p>{TEXT.faq.items.siteAccess.answer}</p>
             </FAQAnswer>

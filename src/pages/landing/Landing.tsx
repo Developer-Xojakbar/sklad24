@@ -6,6 +6,7 @@
 // } from '../../design-system';
 import {
   LandingScroll,
+  LandingMain,
   Navbar,
   HeroSection,
   BenefitsSection,
@@ -38,16 +39,18 @@ export const Landing = () => {
     <>
       <LandingScroll id="landing-scroll">
         <Navbar handleSendSignUpClick={handleSendSignUpClick} />
-        <HeroSection
-          handleSendSignUpClick={handleSendSignUpClick}
-          handleOpenTelegram={handleOpenTelegram}
-        />
-        <BenefitsSection />
-        <ContainerSizesSection handleSendSignUpClick={handleSendSignUpClick} />
-        <UseCasesSection />
-        <HowItWorksSection />
-        <LocationContactSection handleSendSignUpClick={handleSendSignUpClick} />
-        <FAQSection />
+        <LandingMain>
+          <HeroSection
+            handleSendSignUpClick={handleSendSignUpClick}
+            handleOpenTelegram={handleOpenTelegram}
+          />
+          <BenefitsSection />
+          <ContainerSizesSection handleSendSignUpClick={handleSendSignUpClick} />
+          <UseCasesSection />
+          <HowItWorksSection />
+          <LocationContactSection handleSendSignUpClick={handleSendSignUpClick} />
+          <FAQSection />
+        </LandingMain>
         <LandingFooter handleOpenTelegram={handleOpenTelegram} />
         <FloatingTelegramButton />
       </LandingScroll>
