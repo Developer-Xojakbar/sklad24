@@ -1,9 +1,8 @@
-// import {
-//   SendSignUpModal,
-//   SendSignUpSuccessModal,
-//   sendSignUpModal,
-//   sendSignUpSuccessModal,
-// } from '../../design-system';
+import {
+  SendSignUpModal,
+  SendSignUpSuccessModal,
+  sendSignUpModal,
+} from '../../design-system';
 import {
   LandingScroll,
   LandingMain,
@@ -22,13 +21,9 @@ import {
 
 export const Landing = () => {
   const handleSendSignUpClick = () => {
-    // sendSignUpModal.price = null;
-    // sendSignUpModal.number = null;
-    // sendSignUpModal.withCategory = true;
-    // sendSignUpModal.submitClick = () => {
-    //   sendSignUpSuccessModal.open();
-    // };
-    // sendSignUpModal.open();
+    sendSignUpModal.phone = null;
+    sendSignUpModal.name = null;
+    sendSignUpModal.open();
   };
 
   const handleOpenTelegram = () => {
@@ -54,8 +49,8 @@ export const Landing = () => {
         <LandingFooter handleOpenTelegram={handleOpenTelegram} />
         <FloatingTelegramButton />
       </LandingScroll>
-      {/* <SendSignUpModal />
-      <SendSignUpSuccessModal /> */}
+      <SendSignUpModal />
+      <SendSignUpSuccessModal />
     </>
   );
 };
