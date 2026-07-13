@@ -1,9 +1,9 @@
-import axios from 'axios';
+import { api } from './api';
 
 class TelegramService {
   signup(name: string, phone: string) {
-    return axios.post('/telegram-bot/sklad24/signup', { name, phone });
+    return api.post('/telegram-bot/sklad24/signup', { name, phone });
   }
 }
 
-export const telegrmService = new TelegramService();
+export const telegramService = new TelegramService();

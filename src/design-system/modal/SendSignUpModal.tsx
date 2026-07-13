@@ -5,22 +5,12 @@ import PhoneInput, { type Value } from 'react-phone-number-input';
 import ru from 'react-phone-number-input/locale/ru';
 import 'react-phone-number-input/style.css';
 import { getPhoneDigits, isValidPhone, toPhoneValue } from '../../utils';
+import { telegramService } from '../../service';
 import { ModalBase } from './ModalBase';
 import { createModalController } from './modal-controller';
 import { sendSignUpSuccessModal } from './SendSignUpSuccessModal';
 
 const TELEGRAM_LINK = 'https://t.me/Sklad24_uz';
-
-const getTelegramUrl = (name: string, phoneDigits: string) => {
-  const message = `Здравствуйте!
-
-📦 Хочу арендовать склад.
-
-👤 Имя: ${name}
-📞 Телефон: ${phoneDigits}`;
-
-  return `${TELEGRAM_LINK}?text=${encodeURIComponent(message)}`;
-};
 
 const TEXT = {
   title: 'Оставьте заявку',
@@ -32,6 +22,7 @@ const TEXT = {
   nameRequired: 'Введите имя',
   phoneRequired: 'Введите телефон',
   phoneInvalid: 'Введите корректный номер телефона',
+  submitError: 'Не удалось отправить заявку. Попробуйте позже.',
 } as const;
 
 export const sendSignUpModal = createModalController({
@@ -222,6 +213,7 @@ export const SendSignUpModal = () => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState<Value>();
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!modal.isOpen) return;
@@ -231,7 +223,7 @@ export const SendSignUpModal = () => {
     setError('');
   }, [modal.isOpen, modal.name, modal.phone]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const trimmedName = name.trim();
@@ -252,10 +244,19 @@ export const SendSignUpModal = () => {
       return;
     }
 
-    window.open(getTelegramUrl(trimmedName, phoneDigits), '_blank', 'noopener,noreferrer');
+    setIsSubmitting(true);
+    setError('');
 
-    sendSignUpModal.close();
-    sendSignUpSuccessModal.open();
+    try {
+      await telegramService.signup(trimmedName, phoneDigits);
+
+      sendSignUpModal.close();
+      sendSignUpSuccessModal.open();
+    } catch {
+      setError(TEXT.submitError);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -298,7 +299,9 @@ export const SendSignUpModal = () => {
 
           {error && <ErrorText>{error}</ErrorText>}
 
-          <SubmitButton type="submit">{TEXT.submit}</SubmitButton>
+          <SubmitButton type="submit" disabled={isSubmitting}>
+            {TEXT.submit}
+          </SubmitButton>
         </Form>
 
         <TelegramHint href={TELEGRAM_LINK} target="_blank" rel="noopener noreferrer">
