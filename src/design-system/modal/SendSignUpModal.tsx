@@ -212,7 +212,7 @@ export const SendSignUpModal = () => {
     setError('');
   }, [modal.isOpen, modal.name, modal.phone]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const trimmedName = name.trim();
