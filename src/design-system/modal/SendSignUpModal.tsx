@@ -7,14 +7,16 @@ import { sendSignUpSuccessModal } from './SendSignUpSuccessModal';
 
 const TELEGRAM_LINK = 'https://t.me/Sklad24_uz';
 
-const AREA_OPTIONS = [
-  { value: '6 метров (15 м²)', label: '6 метров — 15 м²' },
-  { value: '12 метров (30 м²)', label: '12 метров — 30 м²' },
-  { value: '3 м²', label: '3 м²' },
-  { value: '12 м²', label: '12 м²' },
-  { value: '15 м²', label: '15 м²' },
-  { value: '30 м²', label: '30 м²' },
-] as const;
+const getTelegramUrl = (name: string, phone: string) => {
+  const message = `Здравствуйте!
+
+  📦 Хочу арендовать склад.
+  
+  👤 Имя: ${name}
+  📞 Телефон: ${phone}`;
+
+  return `${TELEGRAM_LINK}?text=${message}`;
+};
 
 const TEXT = {
   title: 'Оставьте заявку',
@@ -189,8 +191,6 @@ const buildTelegramMessage = (name: string, phone: string, area: string) => {
   return lines.join('\n');
 };
 
-const getTelegramUrl = (message: string) => `${TELEGRAM_LINK}?text=${encodeURIComponent(message)}`;
-
 export const SendSignUpModal = () => {
   const modal = useSyncExternalStore(
     sendSignUpModal.subscribe,
@@ -224,7 +224,7 @@ export const SendSignUpModal = () => {
     }
 
     const message = buildTelegramMessage(trimmedName, trimmedPhone, area);
-    window.open(getTelegramUrl(message), '_blank', 'noopener,noreferrer');
+    window.open(getTelegramUrl(trimmedName, trimmedPhone), '_blank', 'noopener,noreferrer');
 
     sendSignUpModal.close();
     sendSignUpSuccessModal.open();
