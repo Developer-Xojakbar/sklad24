@@ -1,32 +1,37 @@
 import { FormEvent, useEffect, useState, useSyncExternalStore } from 'react';
 import styled from 'styled-components';
 import { Telegram as TelegramIcon } from '@mui/icons-material';
+import PhoneInput, { type Value } from 'react-phone-number-input';
+import ru from 'react-phone-number-input/locale/ru';
+import 'react-phone-number-input/style.css';
+import { getPhoneDigits, isValidPhone, toPhoneValue } from '../../utils';
 import { ModalBase } from './ModalBase';
 import { createModalController } from './modal-controller';
 import { sendSignUpSuccessModal } from './SendSignUpSuccessModal';
 
 const TELEGRAM_LINK = 'https://t.me/Sklad24_uz';
 
-const getTelegramUrl = (name: string, phone: string) => {
+const getTelegramUrl = (name: string, phoneDigits: string) => {
   const message = `Здравствуйте!
 
-  📦 Хочу арендовать склад.
-  
-  👤 Имя: ${name}
-  📞 Телефон: ${phone}`;
+📦 Хочу арендовать склад.
 
-  return `${TELEGRAM_LINK}?text=${message}`;
+👤 Имя: ${name}
+📞 Телефон: ${phoneDigits}`;
+
+  return `${TELEGRAM_LINK}?text=${encodeURIComponent(message)}`;
 };
 
 const TEXT = {
   title: 'Оставьте заявку',
   subtitle: 'Мы свяжемся с вами в ближайшее время',
   namePlaceholder: 'Ваше имя',
-  phonePlaceholder: 'Телефон',
-  areaPlaceholder: 'Какая площадь вам нужна?',
+  phonePlaceholder: 'Введите номер телефона',
   submit: 'Отправить заявку',
   telegramHint: 'Не хотите заполнять форму? Напишите нам в Telegram — ответим за 5 минут!',
-  validation: 'Заполните имя и телефон',
+  nameRequired: 'Введите имя',
+  phoneRequired: 'Введите телефон',
+  phoneInvalid: 'Введите корректный номер телефона',
 } as const;
 
 export const sendSignUpModal = createModalController({
@@ -92,28 +97,54 @@ const Input = styled.input`
   }
 `;
 
-const Select = styled.select`
+const PhoneInputWrap = styled.div`
   width: 100%;
-  padding: 1.4rem 1.6rem;
-  border: none;
-  border-radius: 0.4rem;
-  background: #ffffff;
-  font-family: inherit;
-  font-size: 1.4rem;
-  color: #131523;
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%235A607F' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 1.6rem center;
-  padding-right: 4rem;
 
-  &:invalid {
-    color: #7e84a3;
+  .PhoneInput {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 100%;
+    padding: 1.2rem 1.6rem;
+    border: none;
+    border-radius: 0.4rem;
+    background: #ffffff;
   }
 
-  option {
+  .PhoneInputInput {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    padding: 0.2rem 0;
+    font-family: inherit;
+    font-size: 1.4rem;
     color: #131523;
+    background: transparent;
+
+    &::placeholder {
+      color: #7e84a3;
+    }
+  }
+
+  .PhoneInputCountry {
+    align-self: center;
+  }
+
+  .PhoneInputCountrySelect {
+    font-family: inherit;
+    font-size: 1.3rem;
+    color: #131523;
+  }
+
+  .PhoneInputCountryIcon {
+    width: 2.4rem;
+    height: 1.6rem;
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  .PhoneInputCountryIconImg {
+    display: block;
   }
 `;
 
@@ -181,16 +212,6 @@ const TelegramIconWrap = styled.span`
   }
 `;
 
-const buildTelegramMessage = (name: string, phone: string, area: string) => {
-  const lines = ['Новая заявка с сайта Sklad24:', `Имя: ${name}`, `Телефон: ${phone}`];
-
-  if (area) {
-    lines.push(`Площадь: ${area}`);
-  }
-
-  return lines.join('\n');
-};
-
 export const SendSignUpModal = () => {
   const modal = useSyncExternalStore(
     sendSignUpModal.subscribe,
@@ -199,32 +220,39 @@ export const SendSignUpModal = () => {
   );
 
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [area, setArea] = useState('');
+  const [phone, setPhone] = useState<Value>();
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (!modal.isOpen) return;
 
     setName(modal.name ?? '');
-    setPhone(modal.phone ?? '');
-    setArea('');
+    setPhone(toPhoneValue(modal.phone));
     setError('');
   }, [modal.isOpen, modal.name, modal.phone]);
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const trimmedName = name.trim();
-    const trimmedPhone = phone.trim();
+    const phoneDigits = getPhoneDigits(phone ?? '');
 
-    if (!trimmedName || !trimmedPhone) {
-      setError(TEXT.validation);
+    if (!trimmedName) {
+      setError(TEXT.nameRequired);
       return;
     }
 
-    const message = buildTelegramMessage(trimmedName, trimmedPhone, area);
-    window.open(getTelegramUrl(trimmedName, trimmedPhone), '_blank', 'noopener,noreferrer');
+    if (!phoneDigits) {
+      setError(TEXT.phoneRequired);
+      return;
+    }
+
+    if (!isValidPhone(phone)) {
+      setError(TEXT.phoneInvalid);
+      return;
+    }
+
+    window.open(getTelegramUrl(trimmedName, phoneDigits), '_blank', 'noopener,noreferrer');
 
     sendSignUpModal.close();
     sendSignUpSuccessModal.open();
@@ -240,21 +268,32 @@ export const SendSignUpModal = () => {
         <Title id="send-sign-up-modal-title">{TEXT.title}</Title>
         <Subtitle>{TEXT.subtitle}</Subtitle>
 
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={handleSubmit} noValidate>
           <FieldRow>
             <Input
               value={name}
-              onChange={(event) => setName(event.target.value)}
+              onChange={(event) => {
+                setName(event.target.value);
+                if (error) setError('');
+              }}
               placeholder={TEXT.namePlaceholder}
               autoComplete="name"
+              required
             />
-            <Input
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
-              placeholder={TEXT.phonePlaceholder}
-              type="tel"
-              autoComplete="tel"
-            />
+            <PhoneInputWrap>
+              <PhoneInput
+                international
+                defaultCountry="UZ"
+                countryCallingCodeEditable={true}
+                labels={ru}
+                placeholder={TEXT.phonePlaceholder}
+                value={phone}
+                onChange={(value) => {
+                  setPhone(value);
+                  if (error) setError('');
+                }}
+              />
+            </PhoneInputWrap>
           </FieldRow>
 
           {error && <ErrorText>{error}</ErrorText>}
