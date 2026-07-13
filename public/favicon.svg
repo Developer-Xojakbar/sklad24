@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" rx="8" fill="#0A2D5E"/>
+  <rect x="4" y="10" width="24" height="16" rx="2.5" fill="#2563EB"/>
+  <rect x="4" y="13.5" width="24" height="1.5" fill="#1B5BB5"/>
+  <rect x="4" y="18" width="24" height="1.5" fill="#1B5BB5"/>
+  <text
+    x="16"
+    y="23.5"
+    text-anchor="middle"
+    fill="#FFFFFF"
+    font-family="Inter, system-ui, -apple-system, sans-serif"
+    font-weight="900"
+    font-size="9.5"
+    letter-spacing="-0.3"
+  >24</text>
+</svg>
