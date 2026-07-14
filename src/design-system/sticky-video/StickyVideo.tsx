@@ -159,6 +159,7 @@ export const StickyVideo = () => {
     if (!isExpanded) {
       setIsExpanded(true);
       setIsPaused(false);
+      video.currentTime = 0;
       video.muted = false;
       void video.play().catch(() => undefined);
       return;
@@ -189,6 +190,7 @@ export const StickyVideo = () => {
     setIsPaused(false);
 
     if (video) {
+      video.currentTime = 0;
       video.muted = true;
       void video.play().catch(() => undefined);
     }
