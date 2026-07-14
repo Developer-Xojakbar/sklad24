@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css } from 'styled-components';
 import { PlayArrow as PlayArrowIcon } from '@mui/icons-material';
 import { SCREEN } from '../../const';
 import landingVideo from '../../images/landing/landing.mov';
@@ -10,57 +10,33 @@ const COLORS = {
   white: '#FFFFFF',
 };
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-`;
-
-const Backdrop = styled.div`
-  position: fixed;
-  inset: 0;
-  z-index: 1490;
-  background: rgba(7, 30, 63, 0.62);
-  animation: ${fadeIn} 0.25s ease;
-`;
-
 const Widget = styled.div<{ $expanded: boolean; $hovered: boolean }>`
   position: fixed;
+  left: 2.4rem;
+  bottom: 2.4rem;
   z-index: 1500;
   transition:
     width 0.35s ease,
     height 0.35s ease,
     transform 0.35s ease,
-    left 0.35s ease,
-    bottom 0.35s ease,
     box-shadow 0.25s ease;
+
+  @media (max-width: ${SCREEN.SMALL}px) {
+    left: 1.6rem;
+    bottom: 1.6rem;
+  }
 
   ${({ $expanded, $hovered }) =>
     $expanded
       ? css`
-          left: 50%;
-          bottom: 50%;
-          transform: translate(-50%, 50%);
-          width: min(42rem, calc(100vw - 3.2rem));
-          height: min(74rem, calc(100vh - 4rem));
+          width: 31.5rem;
+          height: 56rem;
+          transform: none;
         `
       : css`
-          left: 2.4rem;
-          bottom: 2.4rem;
           width: 12.5rem;
           height: 22.2rem;
           transform: scale(${$hovered ? 1.06 : 1});
-          box-shadow: 0 1.2rem 3.2rem rgba(7, 30, 63, 0.28);
-          border-radius: 1.2rem;
-
-          @media (max-width: ${SCREEN.SMALL}px) {
-            left: 1.6rem;
-            bottom: 1.6rem;
-          }
         `}
 `;
 
@@ -72,7 +48,7 @@ const VideoShell = styled.div<{ $expanded: boolean }>`
   border-radius: ${({ $expanded }) => ($expanded ? '1.6rem' : '1.2rem')};
   background: ${COLORS.blueDark};
   cursor: pointer;
-  box-shadow: ${({ $expanded }) => ($expanded ? '0 2rem 5.6rem rgba(7, 30, 63, 0.42)' : 'none')};
+  box-shadow: ${({ $expanded }) => ($expanded ? '0 2rem 5.6rem rgba(7, 30, 63, 0.42)' : '0 1.2rem 3.2rem rgba(7, 30, 63, 0.28)')};
 `;
 
 const VideoElement = styled.video`
@@ -102,14 +78,14 @@ const MinimizeIconMark = () => (
 
 const ControlButton = styled.button<{ $expanded: boolean }>`
   position: absolute;
-  top: ${({ $expanded }) => ($expanded ? '1rem' : '-0.6rem')};
-  right: ${({ $expanded }) => ($expanded ? '1rem' : '-0.6rem')};
+  top: ${({ $expanded }) => ($expanded ? '-0.8rem' : '-0.6rem')};
+  right: ${({ $expanded }) => ($expanded ? '-0.8rem' : '-0.6rem')};
   z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2rem;
-  height: 2rem;
+  width: ${({ $expanded }) => ($expanded ? '2.4rem' : '2rem')};
+  height: ${({ $expanded }) => ($expanded ? '2.4rem' : '2rem')};
   border: none;
   border-radius: 50%;
   background: #151d32;
@@ -122,7 +98,7 @@ const ControlButton = styled.button<{ $expanded: boolean }>`
     opacity 0.2s ease;
 
   &:hover {
-    transform: scale(1.04);
+    transform: scale(1.1);
     background: #1f2940;
   }
 `;
@@ -221,38 +197,34 @@ export const StickyVideo = () => {
   const showCloseButton = isExpanded || isHovered;
 
   return (
-    <>
-      {isExpanded && <Backdrop onClick={() => handleMinimize()} aria-hidden />}
+    <Widget
+      $expanded={isExpanded}
+      $hovered={isHovered}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {showCloseButton && (
+        <ControlButton
+          type="button"
+          $expanded={isExpanded}
+          aria-label={isExpanded ? 'Свернуть видео' : 'Закрыть видео'}
+          onClick={(event) => (isExpanded ? handleMinimize(event) : handleClose(event))}
+        >
+          {isExpanded ? <MinimizeIconMark /> : <CloseIconMark />}
+        </ControlButton>
+      )}
 
-      <Widget
-        $expanded={isExpanded}
-        $hovered={isHovered}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        {showCloseButton && (
-          <ControlButton
-            type="button"
-            $expanded={isExpanded}
-            aria-label={isExpanded ? 'Свернуть видео' : 'Закрыть видео'}
-            onClick={(event) => (isExpanded ? handleMinimize(event) : handleClose(event))}
-          >
-            {isExpanded ? <MinimizeIconMark /> : <CloseIconMark />}
-          </ControlButton>
+      <VideoShell $expanded={isExpanded} onClick={handleVideoClick}>
+        <VideoElement ref={videoRef} src={landingVideo} autoPlay loop muted playsInline />
+
+        {isExpanded && isPaused && (
+          <PlayOverlay>
+            <PlayButton>
+              <PlayArrowIcon aria-hidden />
+            </PlayButton>
+          </PlayOverlay>
         )}
-
-        <VideoShell $expanded={isExpanded} onClick={handleVideoClick}>
-          <VideoElement ref={videoRef} src={landingVideo} autoPlay loop muted playsInline />
-
-          {isExpanded && isPaused && (
-            <PlayOverlay>
-              <PlayButton>
-                <PlayArrowIcon aria-hidden />
-              </PlayButton>
-            </PlayOverlay>
-          )}
-        </VideoShell>
-      </Widget>
-    </>
+      </VideoShell>
+    </Widget>
   );
 };
