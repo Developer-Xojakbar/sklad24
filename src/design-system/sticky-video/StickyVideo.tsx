@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styled, { css, keyframes } from 'styled-components';
-import {
-  Close as CloseIcon,
-  PlayArrow as PlayArrowIcon,
-  Remove as RemoveIcon,
-} from '@mui/icons-material';
+import { PlayArrow as PlayArrowIcon } from '@mui/icons-material';
 import { SCREEN } from '../../const';
 import landingVideo from '../../images/landing/landing.mov';
 
@@ -38,7 +34,7 @@ const Widget = styled.div<{ $expanded: boolean; $hovered: boolean }>`
   transition:
     width 0.35s ease,
     height 0.35s ease,
-    transform 0.25s ease,
+    transform 0.35s ease,
     left 0.35s ease,
     bottom 0.35s ease,
     box-shadow 0.25s ease;
@@ -55,16 +51,15 @@ const Widget = styled.div<{ $expanded: boolean; $hovered: boolean }>`
       : css`
           left: 2.4rem;
           bottom: 2.4rem;
-          width: 11.5rem;
-          height: 20.5rem;
-          transform: scale(${ $hovered ? 1.06 : 1 });
+          width: 12.5rem;
+          height: 22.2rem;
+          transform: scale(${$hovered ? 1.06 : 1});
           box-shadow: 0 1.2rem 3.2rem rgba(7, 30, 63, 0.28);
+          border-radius: 1.2rem;
 
           @media (max-width: ${SCREEN.SMALL}px) {
             left: 1.6rem;
             bottom: 1.6rem;
-            width: 9.6rem;
-            height: 17rem;
           }
         `}
 `;
@@ -77,8 +72,7 @@ const VideoShell = styled.div<{ $expanded: boolean }>`
   border-radius: ${({ $expanded }) => ($expanded ? '1.6rem' : '1.2rem')};
   background: ${COLORS.blueDark};
   cursor: pointer;
-  box-shadow: ${({ $expanded }) =>
-    $expanded ? '0 2rem 5.6rem rgba(7, 30, 63, 0.42)' : 'none'};
+  box-shadow: ${({ $expanded }) => ($expanded ? '0 2rem 5.6rem rgba(7, 30, 63, 0.42)' : 'none')};
 `;
 
 const VideoElement = styled.video`
@@ -89,34 +83,47 @@ const VideoElement = styled.video`
   pointer-events: none;
 `;
 
+const CloseIconMark = () => (
+  <svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+    <path
+      d="M2.5 2.5L11.5 11.5M11.5 2.5L2.5 11.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const MinimizeIconMark = () => (
+  <svg width="10" height="10" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+    <path d="M2.5 7H11.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+  </svg>
+);
+
 const ControlButton = styled.button<{ $expanded: boolean }>`
   position: absolute;
-  top: ${({ $expanded }) => ($expanded ? '1.2rem' : '-0.8rem')};
-  right: ${({ $expanded }) => ($expanded ? '1.2rem' : '-0.8rem')};
-  z-index: 2;
+  top: ${({ $expanded }) => ($expanded ? '1rem' : '-0.6rem')};
+  right: ${({ $expanded }) => ($expanded ? '1rem' : '-0.6rem')};
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 3.2rem;
-  height: 3.2rem;
+  width: 2rem;
+  height: 2rem;
   border: none;
   border-radius: 50%;
-  background: rgba(7, 30, 63, 0.88);
+  background: #151d32;
   color: ${COLORS.white};
   cursor: pointer;
-  box-shadow: 0 0.4rem 1.2rem rgba(7, 30, 63, 0.35);
+  box-shadow: 0 0.6rem 1.6rem rgba(8, 14, 28, 0.34);
   transition:
     transform 0.2s ease,
     background 0.2s ease,
     opacity 0.2s ease;
 
-  svg {
-    font-size: ${({ $expanded }) => ($expanded ? '2.2rem' : '1.8rem')};
-  }
-
   &:hover {
-    transform: scale(1.06);
-    background: ${COLORS.blue};
+    transform: scale(1.04);
+    background: #1f2940;
   }
 `;
 
@@ -223,18 +230,18 @@ export const StickyVideo = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <VideoShell $expanded={isExpanded} onClick={handleVideoClick}>
-          {showCloseButton && (
-            <ControlButton
-              type="button"
-              $expanded={isExpanded}
-              aria-label={isExpanded ? 'Свернуть видео' : 'Закрыть видео'}
-              onClick={(event) => (isExpanded ? handleMinimize(event) : handleClose(event))}
-            >
-              {isExpanded ? <RemoveIcon aria-hidden /> : <CloseIcon aria-hidden />}
-            </ControlButton>
-          )}
+        {showCloseButton && (
+          <ControlButton
+            type="button"
+            $expanded={isExpanded}
+            aria-label={isExpanded ? 'Свернуть видео' : 'Закрыть видео'}
+            onClick={(event) => (isExpanded ? handleMinimize(event) : handleClose(event))}
+          >
+            {isExpanded ? <MinimizeIconMark /> : <CloseIconMark />}
+          </ControlButton>
+        )}
 
+        <VideoShell $expanded={isExpanded} onClick={handleVideoClick}>
           <VideoElement ref={videoRef} src={landingVideo} autoPlay loop muted playsInline />
 
           {isExpanded && isPaused && (
