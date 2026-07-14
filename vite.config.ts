@@ -1,8 +1,21 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import checker from 'vite-plugin-checker';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    checker({
+      eslint: {
+        lintCommand: 'eslint "./src/**/*.{ts,tsx}"',
+        useFlatConfig: false,
+      },
+      overlay: {
+        initialIsOpen: false,
+      },
+      terminal: true,
+    }),
+  ],
   base: '/',
   resolve: {
     alias: {
