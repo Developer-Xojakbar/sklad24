@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { PlayArrow as PlayArrowIcon } from '@mui/icons-material';
 import { SCREEN } from '../../const';
-import landingVideo from '../../images/landing/landing.mov';
+import landingVideo from '../../images/landing/landing.mp4';
 
 const COLORS = {
   blue: '#1B5BB5',

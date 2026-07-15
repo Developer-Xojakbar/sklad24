@@ -1,4 +1,9 @@
-import { SendSignUpModal, SendSignUpSuccessModal, sendSignUpModal } from '../../design-system';
+import {
+  StickyVideo,
+  SendSignUpModal,
+  SendSignUpSuccessModal,
+  sendSignUpModal,
+} from '../../design-system';
 import {
   LandingScroll,
   LandingMain,
@@ -44,7 +49,7 @@ export const Landing = () => {
         </LandingMain>
         <LandingFooter handleOpenTelegram={handleOpenTelegram} />
         <FloatingTelegramButton />
-        {/* <StickyVideo /> */}
+        <StickyVideo />
       </LandingScroll>
       <SendSignUpModal />
       <SendSignUpSuccessModal />
