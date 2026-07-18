@@ -2,9 +2,17 @@
   RewriteEngine On
   RewriteBase /
 
+  # Канонический хост без www
+  RewriteCond %{HTTP_HOST} ^www\.sklad24\.uz$ [NC]
+  RewriteRule ^ https://sklad24.uz%{REQUEST_URI} [R=301,L]
+
+  # /index.html → /
+  RewriteRule ^index\.html$ / [R=301,L]
+
+  # Несуществующие пути → главная (один лендинг, без soft-404 дублей)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ index.html [L]
+  RewriteRule ^ / [R=301,L]
 </IfModule>
 
 <IfModule mod_headers.c>

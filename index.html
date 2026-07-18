@@ -2,6 +2,22 @@
 <html lang="ru">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (function () {
+        var host = location.hostname;
+        if (host === 'localhost' || host === '127.0.0.1') return;
+
+        var canonicalOrigin = 'https://sklad24.uz';
+        var path = location.pathname;
+        var isWww = host === 'www.sklad24.uz';
+        var isIndexHtml = path === '/index.html';
+        var isNonRootPath = path !== '/' && path !== '';
+
+        if (isWww || isIndexHtml || isNonRootPath) {
+          location.replace(canonicalOrigin + '/' + location.search + location.hash);
+        }
+      })();
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0A2D5E" />
     <meta
